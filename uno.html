@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat de Amor</title>
+    <style>
+        /* CSS style */
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        #chat-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 400px; /* Ancho máximo para evitar que se extienda demasiado en pantallas grandes */
+            overflow-y: auto;
+            max-height: 60vh;
+            margin-bottom: 20px;
+        }
+
+        .mensaje {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            align-self: flex-start;
+            background-color: #e0f7fa;
+        }
+
+        .mensaje:hover {
+            background-color: #ffbddd;
+        }
+        .mensaje p {
+            margin: 5px 0;
+            font-size: 16px; /* Tamaño de fuente adecuado para dispositivos móviles */
+        }
+
+        .mensaje img {
+            max-width: 100%;
+            max-height: 200px; /* Tamaño máximo para los GIFs */
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            background-color: #020d16;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+   <div id="chat-container"></div>
+   <button onclick="mostrarAmor()">Pulsa aquí</button>
+
+   <script>
+       var mensajesTexto = [
+           'Te amo ❤️',
+           'Que guapo eres Amor',
+           'Mi bb hermoso ',
+           'Mi niño lindo',
+           'Papi te amo 💕',
+           'Te extraño Amor',
+           'Te Amo Mucho ',
+           'Me encantas',
+           'Para ti ❤️❤️❤️',
+           '<3',
+           'Estas bien guapo 😍😍😍',
+           'No puedo dejar de pensar en ti :3',
+           'Te quiero besar ❤️',
+           'Te quiero abrazar papi <3',
+           'Me gustas😍 Demasiado',
+           'Papi te amo ❤️',
+           'Muchos besos para mi amor ❤️',
+           '<3',
+           'Me encantas ❤️',
+           'Te amo',
+           'Tu eres mi bb',
+           'Me haces feliz',
+           'Te admiro mucho corazon',
+           'Eres muy importante para mi'
+       ];
+       
+
+       var gifs = [
+               'https://media1.tenor.com/images/86027a9034d14660aca90e87b96bf6d5/tenor.gif?itemid=14477762',
+               'https://media1.tenor.com/images/b0c5cf0c0e3593c24f161252ccfed743/tenor.gif?itemid=10327173',
+               'https://media1.tenor.com/images/02145a807f1bcea8f1ec7a58127b7b39/tenor.gif?itemid=14520299',
+               'https://media.tenor.com/images/30b99cc9180d1c6fe9183765f9e9c1c1/tenor.gif',
+               'https://th.bing.com/th/id/R.ffc59d67c91a78e7d8f81fc8fb87cf09?rik=WGxHBWUL3L%2bt5w&riu=http%3a%2f%2fmedia.giphy.com%2fmedia%2fbMLGNRoAy0Yko%2fgiphy.gif&ehk=IoF9F8QD6zw1wBFLqtJ%2fllI%2fqy1LGfcemyTDKMJY9tE%3d&risl=&pid=ImgRaw&r=0',
+               'https://th.bing.com/th/id/R.55ac7d54b1a388386c73fee25e42f440?rik=xRHP4a%2bDZ0BDbQ&pid=ImgRaw&r=0',
+               'https://i.pinimg.com/originals/eb/a7/0c/eba70c001373fa1bf340247019823411.png',
+       ];
+
+       var ultimoGifMostrado = '';
+
+       function getRandomMessage(messages) {
+           var randomIndex = Math.floor(Math.random() * messages.length);
+           return messages[randomIndex];
+       }
+
+       function mostrarAmor() {
+           var chatContainer = document.getElementById('chat-container');
+
+           var mensaje = document.createElement('div');
+           mensaje.classList.add('mensaje');
+
+           var contenido = document.createElement('p');
+           var message;
+           if (Math.random() < 0.5) {
+               message = getRandomMessage(mensajesTexto);
+               contenido.textContent = message;
+           } else {
+               var gif;
+               do {
+                   gif = getRandomMessage(gifs);
+               } while (gif === ultimoGifMostrado); // Evitar que se repita el mismo GIF
+               ultimoGifMostrado = gif;
+
+               var gifElement = document.createElement('img');
+               gifElement.src = gif;
+               contenido.appendChild(gifElement);
+           }
+
+           mensaje.appendChild(contenido);
+           chatContainer.appendChild(mensaje);
+
+           // Ajustar el ancho del mensaje basado en su longitud de caracteres
+           if (message) {
+               var longitud = message.length;
+               mensaje.style.width = longitud + "ch"; // Establecer el ancho del mensaje en función de la cantidad de caracteres
+           }
+
+           // Desplazar el scroll al último mensaje
+           chatContainer.scrollTop = chatContainer.scrollHeight;
+       }
+   </script>
+</body>
+</html>
